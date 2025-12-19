@@ -1,0 +1,34 @@
+
+from setuptools import find_packages,setup
+from typing import List
+def get_requirements(file_path:str)->List[str]:
+    '''
+    this function will return the list of requirements
+    '''
+    requirements=[]
+    with open(file_path) as file_obj:
+        requirements=file_obj.readlines()
+        requirements=[req.replace("\n","")for req in requirements]
+        if '-e .' in requirements:
+            requirements.remove('-e .')
+    return requirements
+
+setup(
+    name='mlproject',
+    version='0.0.1',
+    author='Hansi',
+    author_email='hansigupta3@gmail.com',
+    packages=find_packages(), ##for find_packages it will find folders which has __init__.py and treat them as package
+    install_requires=get_requirements('requirements.txt')
+)
+
+# #because of setup.py, people can install (download + use) your project easily.
+# Without setup.py
+# People must:
+# download your folder
+# run files manually
+# fix paths themselves
+
+# With setup.py
+# People can do:
+# pip install your_project
