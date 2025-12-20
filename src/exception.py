@@ -1,4 +1,5 @@
 import sys ##give access to system level information 
+from src.logger import logging
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb=error_detail.exc_info() ##exc_info() gives 3 things: What type of error,Error object ,Traceback (where error happened)We only want traceback, so:_ → ignore_ → ignore exc_tb → keep traceback_ is a Python way of saying “I don’t care about this value”
     file_name=exc_tb.tb_frame.f_code.co_filename ##“From the traceback, tell me which Python file caused the error.” exc_tb → error info tb_frame → the place where error occurred f_code → code details co_filename → file name
