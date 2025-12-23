@@ -7,6 +7,10 @@ from dataclasses import dataclass
 
 from src.logger import logging
 from src.exception import CustomException
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
 
 @dataclass ##You write __init__ only when a class needs to store or initialize data. If the class just has methods, or uses @dataclass, you don’t need to write __init__
 class DataIngestionConfig: ##This class does NOT create folders. It only stores paths.
@@ -39,5 +43,10 @@ class DataIngestion:
         
 if __name__=="__main__":
     obj=DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data,test_data=obj.initiate_data_ingestion()
+    data_transformation=DataTransformation()
+    train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
+
+    modeltrainer=ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
 
